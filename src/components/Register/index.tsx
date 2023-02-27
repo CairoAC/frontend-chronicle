@@ -1,30 +1,29 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import axios from 'axios';
 
 export default function App() {
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const url = `http://${import.meta.env.VITE_BACKEND_HOST}:${import.meta.env.VITE_BACKEND_PORT}/api/v1`
+
+    const e = event.target;
+
+    axios({
+      method: "post",
+      url: `${url}/users`,
+      data: {
+        username: e.username.value,
+        email: e.email.value,
+        password: e.email.value
+      }
+    })
+
+    return false;
+  }
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -42,10 +41,10 @@ export default function App() {
               </a>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" method="POST" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
-            <div>
+              <div>
                 <label htmlFor="Username" className="sr-only">
                   Username
                 </label>
