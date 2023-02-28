@@ -11,7 +11,7 @@ export default function App() {
 
     axios({
       method: "post",
-      url: `${url}/users`,
+      url: `${url}/user`,
       data: {
         username: e.username.value,
         email: e.email.value,
